@@ -1,0 +1,19 @@
+{
+    "name": "phoole/base",
+    "type": "library",
+    "license": "Apache 2.0",
+    "description": "Base library for other phoole project",
+    "keywords": ["phoole", "library", "php", "framework"],
+    "authors": [
+        {
+            "name": "Hong Zhang",
+            "homepage": "https://github.com/phoole"
+        }
+    ],
+    "require": {
+        "php": "^7.2"
+    },
+    "autoload": {
+        "psr-4": { "Phoole\\Base\\": "src/" }
+    }
+}
