@@ -22,7 +22,7 @@ trait ReferenceTrait
      *
      * @var string
      */
-    protected $ref_pattern = '~(\${((?:(?!\${|}).)+|(?R)?)})~';
+    protected $ref_pattern = '~(\$\{((?:(?!\$\{|\}).)+|(?R)?)\})~';
 
     /**
      * @inheritDoc
