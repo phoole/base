@@ -38,9 +38,12 @@ class YamlReaderTest extends TestCase
      */
     public function testReadFromFile1()
     {
+        if (!extension_loaded('yaml')) {
+            $this->markTestSkipped('need YAML extension');
+        }
         $this->assertEquals(
             ['fruit' => ['apple', 'pear'], 'animal' => ['type' => 'mammal']],
-            $this->invokeMethod('readFromFile', [__DIR__.'/good.yaml'])
+            $this->invokeMethod('readFromFile', [__DIR__.'/good.yml'])
         );
     }
 
@@ -51,10 +54,13 @@ class YamlReaderTest extends TestCase
      */
     public function testReadFromFile2()
     {
+        if (!extension_loaded('yaml')) {
+            $this->markTestSkipped('need YAML extension');
+        }
         $this->expectExceptionMessage('failed to open stream');
         $this->assertEquals(
             ['Test' => 'ddd'],
-            $this->invokeMethod('readFromFile', ['god.yaml'])
+            $this->invokeMethod('readFromFile', ['god.yml'])
         );
     }
 
@@ -65,10 +71,13 @@ class YamlReaderTest extends TestCase
      */
     public function testReadFromFile3()
     {
+        if (!extension_loaded('yaml')) {
+            $this->markTestSkipped('need YAML extension');
+        }
         $this->expectExceptionMessage('parsing error');
         $this->assertEquals(
             ['Test' => 'ddd'],
-            $this->invokeMethod('readFromFile', [__DIR__.'/badyaml.txt'])
+            $this->invokeMethod('readFromFile', [__DIR__.'/badyml.txt'])
         );
     }
 }
