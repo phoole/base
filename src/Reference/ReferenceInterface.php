@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Phoole (PHP7.2+)
  *

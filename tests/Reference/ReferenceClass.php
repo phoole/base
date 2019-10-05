@@ -6,10 +6,8 @@ declare(strict_types=1);
 
 namespace Phoole\Tests\Reference;
 
-use Phoole\Base\Reference\{
-    ReferenceTrait,
-    ReferenceInterface,
-};
+use Phoole\Base\Reference\ReferenceTrait;
+use Phoole\Base\Reference\ReferenceInterface;
 
 class ReferenceClass implements ReferenceInterface
 {

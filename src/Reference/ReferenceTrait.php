@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Phoole (PHP7.2+)
  *
@@ -22,7 +23,7 @@ trait ReferenceTrait
      *
      * @var string
      */
-    protected $ref_pattern = '~(\$\{((?:(?!\$\{|\}).)+|(?R)?)\})~';
+    protected $ref_pattern = '~(\$\{(\w((?!\}).)*)\})~';
 
     /**
      * @inheritDoc
@@ -31,7 +32,7 @@ trait ReferenceTrait
     {
         $s = preg_quote($start);
         $e = preg_quote($end);
-        $this->ref_pattern = sprintf("~(%s((?:(?!%s|%s).)+|(?R)?)%s)~", $s, $s, $e, $e);
+        $this->ref_pattern = sprintf("~(%s(\w((?!%s).)*)%s)~", $s, $e, $e);
         return $this;
     }
 
@@ -69,9 +70,11 @@ trait ReferenceTrait
         $loop = 0;
         // recursive matching in string
         while (preg_match($this->ref_pattern, $subject, $matched)) {
-            if ($loop++ > 20) throw new \RuntimeException("Loop in resolving $subject");
+            if ($loop++ > 20) {
+                throw new \RuntimeException("Loop in resolving $subject");
+            }
 
-            $ref = $this->resolveReference($this->deReferenceString($matched[2]));
+            $ref = $this->resolveReference($matched[2]);
             if (is_string($ref)) {
                 $subject = str_replace($matched[1], $ref, $subject);
             } else {
