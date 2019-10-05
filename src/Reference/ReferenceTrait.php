@@ -23,7 +23,7 @@ trait ReferenceTrait
      *
      * @var string
      */
-    protected $ref_pattern = '~(\$\{(\w((?!\}).)*)\})~';
+    protected $ref_pattern = '~(\$\{(\w((?!\$\{|\}).)*)\})~';
 
     /**
      * @inheritDoc
@@ -32,7 +32,7 @@ trait ReferenceTrait
     {
         $s = preg_quote($start);
         $e = preg_quote($end);
-        $this->ref_pattern = sprintf("~(%s(\w((?!%s).)*)%s)~", $s, $e, $e);
+        $this->ref_pattern = sprintf("~(%s(\w((?!%s|%s).)*)%s)~", $s, $s, $e, $e);
         return $this;
     }
 
