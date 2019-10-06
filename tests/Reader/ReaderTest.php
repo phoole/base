@@ -64,6 +64,9 @@ class ReaderTest extends TestCase
      */
     public function testReadFile3()
     {
+        if (!extension_loaded('yaml')) {
+            $this->markTestSkipped('need YAML extension');
+        }
         $this->assertEquals(
             ['fruit' => ['apple', 'pear'], 'animal' => ['type' => 'mammal']],
             $this->invokeMethod('readFile', [__DIR__.'/good.yml'])

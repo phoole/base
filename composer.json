@@ -2,7 +2,7 @@
     "name": "phoole/base",
     "type": "library",
     "license": "Apache-2.0",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "description": "Base library for other Phoole project",
     "keywords": ["php", "library", "phoole", "swoole"],
     "authors": [
