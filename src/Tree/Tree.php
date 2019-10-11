@@ -133,6 +133,8 @@ class Tree implements TreeInterface
     protected function fixData(array $data): array
     {
         $result = [];
+        if (isset($data[0])) return $data;
+        
         foreach ($data as $k => $v) {
             $res = &$this->searchNode($k, $result, true);
             if (is_array($v) && is_array($res)) {

@@ -217,6 +217,12 @@ class TreeTest extends TestCase
             [ 'env' => 'test', 'db' => ['user' => 'root', 'host' => 'dev1']],
             $this->invokeMethod('fixData', [$data])
         );
+
+        $data = ['test'];
+        $this->assertEquals(
+            $data,
+            $this->invokeMethod('fixData', [$data])
+        );
     }
 
     /**
