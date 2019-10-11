@@ -32,4 +32,13 @@ interface ReferenceInterface
      * @return object $this
      */
     public function setReferencePattern(string $start, string $end): object;
+
+    /**
+     * Replace all references in the target (recursively)
+     *
+     * @param  mixed &$subject
+     * @return void
+     * @throws \RuntimeException if bad thing happens
+     */
+    public function deReference(&$subject): void;
 }

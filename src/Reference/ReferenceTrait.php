@@ -37,13 +37,9 @@ trait ReferenceTrait
     }
 
     /**
-     * Replace all references in the target string (recursively)
-     *
-     * @param  mixed &$subject
-     * @return void
-     * @throws \RuntimeException if bad thing happens
+     * {@inheritDoc}
      */
-    protected function deReference(&$subject): void
+    public function deReference(&$subject): void
     {
         if (is_string($subject)) {
             $subject = $this->deReferenceString($subject);
