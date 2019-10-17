@@ -12,11 +12,11 @@ declare(strict_types=1);
 namespace Phoole\Base\Reference;
 
 /**
- * Reference
+ * ReferenceAbstract
  *
  * @package Phoole\Base
  */
-class Reference implements ReferenceInterface
+abstract class ReferenceAbstract implements ReferenceInterface
 {
     use ReferenceTrait;
 }
