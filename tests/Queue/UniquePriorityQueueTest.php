@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace Phoole\Tests\Queue;
 
 use PHPUnit\Framework\TestCase;
-use Phoole\Base\Queue\PriorityQueue;
+use Phoole\Base\Queue\UniquePriorityQueue;
 
-class PriorityQueueTest extends TestCase
+class UniquePriorityQueueTest extends TestCase
 {
     private $obj;
     private $ref;
@@ -14,7 +14,7 @@ class PriorityQueueTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->obj = new PriorityQueue();
+        $this->obj = new UniquePriorityQueue();
         $this->ref = new \ReflectionClass(get_class($this->obj));
     }
 
@@ -32,24 +32,29 @@ class PriorityQueueTest extends TestCase
     }
 
     /**
-     * @covers Phoole\Base\Queue\PriorityQueue::insert()
+     * @covers Phoole\Base\Queue\UniquePriorityQueue::insert()
      */
     public function testInsert()
     {
         $this->obj->insert(10);
         $this->assertTrue(1 === count($this->obj));
 
-        $this->obj->insert(11, 0);
-        $this->assertTrue(2 === count($this->obj));
+        $this->obj->insert(10, 0);
+        $this->assertTrue(1 === count($this->obj));
+    }
 
-        $this->obj->insert(20, 20);
+    /**
+     * @covers Phoole\Base\Queue\UniquePriorityQueue::insert()
+     */
+    public function testInsert2()
+    {
+        // test object
+        $o = new UniquePriorityQueue();
+        $this->obj->insert($o, 10);
+        $this->assertTrue(1 === count($this->obj));
 
-        // check priority
-        $result = [];
-        foreach($this->obj as $d) {
-            $result[] = $d;
-        }
-        $this->assertEquals([20,10,11], $result);
+        $this->obj->insert($o, 20);
+        $this->assertTrue(1 === count($this->obj));
     }
 
     /**
@@ -57,19 +62,22 @@ class PriorityQueueTest extends TestCase
      */
     public function testCombine()
     {
-        $o1 = new PriorityQueue();
+        $o1 = new UniquePriorityQueue();
         $o1->insert(10);
         $o1->insert(20);
 
-        $o2 = new PriorityQueue();
-        $o2->insert(15);
+        $o2 = new UniquePriorityQueue();
+        $o2->insert(10);
         $o2->insert(25, 10);
 
         $o3 = $o2->combine($o1);
+
+        $this->assertEquals(3, count($o3));
+
         $result = [];
         foreach($o3 as $d) {
             $result[] = $d;
         }
-        $this->assertEquals([25,15,10,20], $result);
+        $this->assertEquals([25,10,20], $result);
     }
 }
