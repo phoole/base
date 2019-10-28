@@ -58,6 +58,19 @@ class UniquePriorityQueueTest extends TestCase
     }
 
     /**
+     * @covers Phoole\Base\Queue\UniquePriorityQueue::insert()
+     */
+    public function testInsert3()
+    {
+        $o1 = new UniquePriorityQueue();
+        $this->obj->insert($o1, 10);
+        $this->assertTrue(1 === count($this->obj));
+
+        $o2 = new UniquePriorityQueue();
+        $this->obj->insert($o2, 20);
+        $this->assertTrue(2 === count($this->obj));
+    }
+    /**
      * @covers Phoole\Base\Queue\PriorityQueue::combine()
      */
     public function testCombine()

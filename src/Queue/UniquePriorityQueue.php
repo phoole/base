@@ -25,7 +25,7 @@ class UniquePriorityQueue extends PriorityQueue
      */
     public function count()
     {
-        return count(array_unique(array_column($this->queue, 'data'), \SORT_REGULAR));
+        return count($this->getUnique(array_column($this->queue, 'data')));
     }
 
     /**
@@ -35,7 +35,29 @@ class UniquePriorityQueue extends PriorityQueue
     {
         $this->sortQueue();
         return new \ArrayIterator(
-            array_unique(array_column($this->queue, 'data'), \SORT_REGULAR)
+            $this->getUnique(array_column($this->queue, 'data'))
         );
+    }
+
+    /**
+     * Remove duplicated items
+     *
+     * @param  array $input
+     * @return array
+     */
+    protected function getUnique(array $input): array
+    {
+        $result = [];
+        foreach ($input as $k => $val) {
+            if (is_object($val)) {
+                $key = \spl_object_hash($val);
+            } elseif (is_scalar($val)) {
+                $key = (string) $val;
+            }
+            if (!isset($result[$key])) {
+                $result[$key] = $val;
+            }
+        }
+        return \array_values($result);
     }
 }
