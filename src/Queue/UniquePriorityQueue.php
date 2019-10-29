@@ -42,22 +42,36 @@ class UniquePriorityQueue extends PriorityQueue
     /**
      * Remove duplicated items
      *
-     * @param  array $input
-     * @return array
+     * @param  mixed[] $input
+     * @return mixed[]
      */
     protected function getUnique(array $input): array
     {
         $result = [];
-        foreach ($input as $k => $val) {
-            if (is_object($val)) {
-                $key = \spl_object_hash($val);
-            } elseif (is_scalar($val)) {
-                $key = (string) $val;
-            }
+        foreach ($input as $val) {
+            $key = $this->getKey($val);
             if (!isset($result[$key])) {
                 $result[$key] = $val;
             }
         }
         return \array_values($result);
+    }
+
+    /**
+     * Generate related key base on value
+     *
+     * @param  mixed $val
+     * @return string
+     */
+    protected function getKey($val): string
+    {
+        if (is_object($val)) {
+            $key = \spl_object_hash($val);
+        } elseif (is_scalar($val)) {
+            $key = (string) $val;
+        } else {
+            $key = md5(\serialize($val));
+        }
+        return $key;
     }
 }
