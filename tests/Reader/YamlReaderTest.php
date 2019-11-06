@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Phoole\Tests\Reader;
@@ -9,6 +10,7 @@ use Phoole\Base\Reader\YamlReader;
 class YamlReaderTest extends TestCase
 {
     private $obj;
+
     private $ref;
 
     protected function setUp(): void
@@ -20,14 +22,14 @@ class YamlReaderTest extends TestCase
 
     protected function tearDown(): void
     {
-        $this->obj = $this->ref = null;
+        $this->obj = $this->ref = NULL;
         parent::tearDown();
     }
 
     protected function invokeMethod($methodName, array $parameters = array())
     {
         $method = $this->ref->getMethod($methodName);
-        $method->setAccessible(true);
+        $method->setAccessible(TRUE);
         return $method->invokeArgs($this->obj, $parameters);
     }
 
@@ -43,7 +45,7 @@ class YamlReaderTest extends TestCase
         }
         $this->assertEquals(
             ['fruit' => ['apple', 'pear'], 'animal' => ['type' => 'mammal']],
-            $this->invokeMethod('readFromFile', [__DIR__.'/good.yml'])
+            $this->invokeMethod('readFromFile', [__DIR__ . '/good.yml'])
         );
     }
 
@@ -77,7 +79,7 @@ class YamlReaderTest extends TestCase
         $this->expectExceptionMessage('parsing error');
         $this->assertEquals(
             ['Test' => 'ddd'],
-            $this->invokeMethod('readFromFile', [__DIR__.'/badyml.txt'])
+            $this->invokeMethod('readFromFile', [__DIR__ . '/badyml.txt'])
         );
     }
 }

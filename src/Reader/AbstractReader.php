@@ -39,8 +39,8 @@ abstract class AbstractReader implements ReaderInterface
      * Truly read from the file
      *
      * @param  string $path
-     * @throws \RuntimeException  if something goes wrong
      * @return mixed
+     * @throws \RuntimeException  if something goes wrong
      */
     abstract protected function readFromFile($path);
 }

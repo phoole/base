@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Phoole\Tests\Queue;
@@ -9,6 +10,7 @@ use Phoole\Base\Queue\PriorityQueue;
 class PriorityQueueTest extends TestCase
 {
     private $obj;
+
     private $ref;
 
     protected function setUp(): void
@@ -20,14 +22,14 @@ class PriorityQueueTest extends TestCase
 
     protected function tearDown(): void
     {
-        $this->obj = $this->ref = null;
+        $this->obj = $this->ref = NULL;
         parent::tearDown();
     }
 
     protected function invokeMethod($methodName, array $parameters = array())
     {
         $method = $this->ref->getMethod($methodName);
-        $method->setAccessible(true);
+        $method->setAccessible(TRUE);
         return $method->invokeArgs($this->obj, $parameters);
     }
 
@@ -46,10 +48,10 @@ class PriorityQueueTest extends TestCase
 
         // check priority
         $result = [];
-        foreach($this->obj as $d) {
+        foreach ($this->obj as $d) {
             $result[] = $d;
         }
-        $this->assertEquals([20,10,11], $result);
+        $this->assertEquals([20, 10, 11], $result);
     }
 
     /**
@@ -67,9 +69,9 @@ class PriorityQueueTest extends TestCase
 
         $o3 = $o2->combine($o1);
         $result = [];
-        foreach($o3 as $d) {
+        foreach ($o3 as $d) {
             $result[] = $d;
         }
-        $this->assertEquals([25,15,10,20], $result);
+        $this->assertEquals([25, 15, 10, 20], $result);
     }
 }

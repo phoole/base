@@ -24,8 +24,8 @@ class JsonReader extends AbstractReader
     protected function readFromFile($path)
     {
         try {
-            $data = \json_decode(\file_get_contents($path), true);
-            if ($data === null) {
+            $data = \json_decode(\file_get_contents($path), TRUE);
+            if ($data === NULL) {
                 throw new \RuntimeException(\json_last_error_msg());
             }
         } catch (\Exception $e) {

@@ -1,37 +1,41 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Phoole\Tests\Tree;
 
-use PHPUnit\Framework\TestCase;
 use Phoole\Base\Tree\Tree;
+use PHPUnit\Framework\TestCase;
 
 class TreeTest extends TestCase
 {
     private $obj;
+
     private $ref;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->obj = new Tree([
-            'db.user' => 'root',
-            'db.passwd' => 'bingo',
-            'db.host.dev' => 'dev1'
-        ]);
+        $this->obj = new Tree(
+            [
+                'db.user' => 'root',
+                'db.passwd' => 'bingo',
+                'db.host.dev' => 'dev1'
+            ]
+        );
         $this->ref = new \ReflectionClass(get_class($this->obj));
     }
 
     protected function tearDown(): void
     {
-        $this->obj = $this->ref = null;
+        $this->obj = $this->ref = NULL;
         parent::tearDown();
     }
 
     protected function invokeMethod($methodName, array $parameters = array())
     {
         $method = $this->ref->getMethod($methodName);
-        $method->setAccessible(true);
+        $method->setAccessible(TRUE);
         return $method->invokeArgs($this->obj, $parameters);
     }
 
@@ -58,7 +62,7 @@ class TreeTest extends TestCase
 
         // not found
         $this->assertTrue(
-            null === $this->obj->get('db.bingo')
+            NULL === $this->obj->get('db.bingo')
         );
     }
 
@@ -69,12 +73,12 @@ class TreeTest extends TestCase
     {
         // find match
         $this->assertEquals(
-            true,
+            TRUE,
             $this->obj->has('db')
         );
 
         $this->assertEquals(
-            false,
+            FALSE,
             $this->obj->has('db.server')
         );
     }
@@ -100,8 +104,8 @@ class TreeTest extends TestCase
         );
 
         // false is allowed
-        $this->obj->add('db.server', false);
-        $this->assertTrue(false === $this->obj->get('db.server'));
+        $this->obj->add('db.server', FALSE);
+        $this->assertTrue(FALSE === $this->obj->get('db.server'));
 
         // fix data
         $new = ['ip.ipv6' => 'xxx'];
@@ -126,9 +130,9 @@ class TreeTest extends TestCase
 
         // delete it
         $this->obj->delete('db.server');
-        $this->assertTrue(null === $this->obj->get('db.server'));
+        $this->assertTrue(NULL === $this->obj->get('db.server'));
     }
-    
+
     /**
      * @covers Phoole\Base\Tree\Tree::serachNode()
      */
@@ -154,14 +158,14 @@ class TreeTest extends TestCase
 
         // not found
         $this->assertEquals(
-            null,
+            NULL,
             $this->invokeMethod('searchNode', ['db.port', &$data])
         );
 
         // create if not found
         $this->assertEquals(
             [],
-            $this->invokeMethod('searchNode', ['db.port', &$data, true])
+            $this->invokeMethod('searchNode', ['db.port', &$data, TRUE])
         );
     }
 
@@ -180,24 +184,24 @@ class TreeTest extends TestCase
         // find match
         $this->assertEquals(
             ['user' => 'root', 'host' => 'dev1'],
-            $this->invokeMethod('childNode', ['db', &$data, false])
+            $this->invokeMethod('childNode', ['db', &$data, FALSE])
         );
 
         $this->assertEquals(
             'root',
-            $this->invokeMethod('childNode', ['user', &$data['db'], false])
+            $this->invokeMethod('childNode', ['user', &$data['db'], FALSE])
         );
 
         // not found
         $this->assertEquals(
-            null,
-            $this->invokeMethod('childNode', ['port', &$data['db'], false])
+            NULL,
+            $this->invokeMethod('childNode', ['port', &$data['db'], FALSE])
         );
 
         // create the child
         $this->assertEquals(
             [],
-            $this->invokeMethod('childNode', ['port', &$data['db'], true])
+            $this->invokeMethod('childNode', ['port', &$data['db'], TRUE])
         );
     }
 
@@ -214,7 +218,7 @@ class TreeTest extends TestCase
 
         // find match
         $this->assertEquals(
-            [ 'env' => 'test', 'db' => ['user' => 'root', 'host' => 'dev1']],
+            ['env' => 'test', 'db' => ['user' => 'root', 'host' => 'dev1']],
             $this->invokeMethod('fixData', [$data])
         );
 

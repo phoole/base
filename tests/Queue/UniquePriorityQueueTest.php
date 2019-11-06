@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Phoole\Tests\Queue;
@@ -9,6 +10,7 @@ use Phoole\Base\Queue\UniquePriorityQueue;
 class UniquePriorityQueueTest extends TestCase
 {
     private $obj;
+
     private $ref;
 
     protected function setUp(): void
@@ -20,14 +22,14 @@ class UniquePriorityQueueTest extends TestCase
 
     protected function tearDown(): void
     {
-        $this->obj = $this->ref = null;
+        $this->obj = $this->ref = NULL;
         parent::tearDown();
     }
 
     protected function invokeMethod($methodName, array $parameters = array())
     {
         $method = $this->ref->getMethod($methodName);
-        $method->setAccessible(true);
+        $method->setAccessible(TRUE);
         return $method->invokeArgs($this->obj, $parameters);
     }
 
@@ -70,6 +72,7 @@ class UniquePriorityQueueTest extends TestCase
         $this->obj->insert($o2, 20);
         $this->assertTrue(2 === count($this->obj));
     }
+
     /**
      * @covers Phoole\Base\Queue\PriorityQueue::combine()
      */
@@ -88,9 +91,9 @@ class UniquePriorityQueueTest extends TestCase
         $this->assertEquals(3, count($o3));
 
         $result = [];
-        foreach($o3 as $d) {
+        foreach ($o3 as $d) {
             $result[] = $d;
         }
-        $this->assertEquals([25,10,20], $result);
+        $this->assertEquals([25, 10, 20], $result);
     }
 }

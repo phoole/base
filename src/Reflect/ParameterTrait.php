@@ -23,7 +23,7 @@ trait ParameterTrait
     /**
      * Get class/object constructor parameters
      *
-     * @param  string|object $class   class name or object
+     * @param  string|object $class  class name or object
      * @return \ReflectionParameter[]
      * @throws \InvalidArgumentException if something goes wrong
      */
@@ -52,17 +52,14 @@ trait ParameterTrait
             if (is_array($callable)) {
                 $reflector = new \ReflectionClass($callable[0]);
                 $method = $reflector->getMethod($callable[1]);
-
-            // function or closure
+                // function or closure
             } elseif (is_string($callable) || $callable instanceof \Closure) {
                 $method = new \ReflectionFunction($callable);
-
-            // object with __invoke() defined
+                // object with __invoke() defined
             } elseif (is_object($callable)) {
                 $reflector = new \ReflectionClass($callable);
                 $method = $reflector->getMethod('__invoke');
-
-            // unknown callable ?
+                // unknown callable ?
             } else {
                 throw new \InvalidArgumentException('unknown type of callable');
             }

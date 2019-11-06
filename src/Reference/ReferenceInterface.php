@@ -27,8 +27,8 @@ interface ReferenceInterface
      * $this->setReference('%{', '%}');
      * ```
      *
-     * @param  string $start start chars
-     * @param  string $end   ending chars
+     * @param  string $start  start chars
+     * @param  string $end    ending chars
      * @return object $this
      */
     public function setReferencePattern(string $start, string $end): object;

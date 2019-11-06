@@ -9,13 +9,17 @@
  */
 declare(strict_types=1);
 
-namespace Phoole\Base\Exception;
+namespace Phoole\Base\Tree;
 
 /**
- * NotFoundException
+ * TreeAwareInterface
  *
  * @package Phoole\Base
  */
-class NotFoundException extends \RuntimeException
+interface TreeAwareInterface
 {
+    /**
+     * @return TreeInterface
+     */
+    public function getTree(): TreeInterface;
 }

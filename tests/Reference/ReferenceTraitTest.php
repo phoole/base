@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Phoole\Tests\Reference;
@@ -8,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 class ReferenceTraitTest extends TestCase
 {
     private $obj;
+
     private $ref;
 
     protected function setUp(): void
@@ -16,11 +18,11 @@ class ReferenceTraitTest extends TestCase
         $data = [
             'test1' => 'Y${wow1}',
             'test2' => 'wow3',
-            'wow1'  => '${${test2}}',
-            'wow3'  => 'xxx',
-            'xxx'   => '${yyy}',
-            'yyy'   => 'b${xxx}',
-            'zzz'   => [1,2],
+            'wow1' => '${${test2}}',
+            'wow3' => 'xxx',
+            'xxx' => '${yyy}',
+            'yyy' => 'b${xxx}',
+            'zzz' => [1, 2],
         ];
         require_once __DIR__ . '/ReferenceClass.php';
         $this->obj = new ReferenceClass($data);
@@ -29,14 +31,14 @@ class ReferenceTraitTest extends TestCase
 
     protected function tearDown(): void
     {
-        $this->obj = $this->ref = null;
+        $this->obj = $this->ref = NULL;
         parent::tearDown();
     }
 
     protected function invokeMethod($methodName, array $parameters = array())
     {
         $method = $this->ref->getMethod($methodName);
-        $method->setAccessible(true);
+        $method->setAccessible(TRUE);
         return $method->invokeArgs($this->obj, $parameters);
     }
 
@@ -65,7 +67,7 @@ class ReferenceTraitTest extends TestCase
 
         // array deref
         $str = '${zzz}';
-        $this->assertEquals([1,2], $this->invokeMethod('deReferenceString', [$str]));
+        $this->assertEquals([1, 2], $this->invokeMethod('deReferenceString', [$str]));
     }
 
     /**
@@ -98,12 +100,12 @@ class ReferenceTraitTest extends TestCase
         // string also works
         $str = '${zzz}';
         $this->invokeMethod('deReference', [&$str]);
-        $this->assertEquals([1,2], $str);
+        $this->assertEquals([1, 2], $str);
 
         // deref an array
         $arr = ['${zzz}', 'a' => ['${test1}']];
         $this->invokeMethod('deReference', [&$arr]);
-        $this->assertEquals([[1,2], 'a' => ['Yxxx']], $arr);
+        $this->assertEquals([[1, 2], 'a' => ['Yxxx']], $arr);
     }
 
     /**

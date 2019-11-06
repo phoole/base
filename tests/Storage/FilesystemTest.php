@@ -10,6 +10,7 @@ use Phoole\Base\Storage\Filesystem;
 class FilesystemTest extends TestCase
 {
     private $obj;
+
     private $ref;
 
     protected function setUp(): void
@@ -23,14 +24,14 @@ class FilesystemTest extends TestCase
     protected function tearDown(): void
     {
         $this->obj->clear();
-        $this->obj = $this->ref = null;
+        $this->obj = $this->ref = NULL;
         parent::tearDown();
     }
 
     protected function invokeMethod($methodName, array $parameters = array())
     {
         $method = $this->ref->getMethod($methodName);
-        $method->setAccessible(true);
+        $method->setAccessible(TRUE);
         return $method->invokeArgs($this->obj, $parameters);
     }
 
@@ -44,7 +45,7 @@ class FilesystemTest extends TestCase
 
         // remove stale file
         touch($path, 0777, time() - 120);
-        $this->invokeMethod('rmDir', [$root, true]);
+        $this->invokeMethod('rmDir', [$root, TRUE]);
         $this->assertFalse(file_exists($path));
         $this->assertTrue(file_exists($root));
 
@@ -127,7 +128,7 @@ class FilesystemTest extends TestCase
             echo 'locked';
             $this->invokeMethod('releaseLock', [$path, $lock]);
         }
-        
+
         // try again
         if ($lock = $this->invokeMethod('getLock', [$path])) {
             echo 'locked';

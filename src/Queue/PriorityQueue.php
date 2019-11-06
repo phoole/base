@@ -30,7 +30,7 @@ class PriorityQueue implements \IteratorAggregate, \Countable
      *
      * @var  bool
      */
-    protected $sorted = true;
+    protected $sorted = TRUE;
 
     /**
      * counter for priority
@@ -43,15 +43,15 @@ class PriorityQueue implements \IteratorAggregate, \Countable
      * Insert data into the queue with priority
      *
      * @param  mixed $data
-     * @param  int  $priority priority, higher number retrieved first(-1000 - 1000)
-     * @throws \RuntimeException if priority out of range
+     * @param  int   $priority  priority, higher number retrieved first(-1000 - 1000)
      * @return void
+     * @throws \RuntimeException if priority out of range
      */
     public function insert($data, int $priority = 0): void
     {
         $i = $this->getIndex($priority);
         $this->queue[$i] = ['data' => $data, 'priority' => $priority];
-        $this->sorted = false;
+        $this->sorted = FALSE;
     }
 
     /**
@@ -90,8 +90,8 @@ class PriorityQueue implements \IteratorAggregate, \Countable
      * Generate an integer key
      *
      * @param  int $priority
-     * @throws \RuntimeException  priority out of range
      * @return int
+     * @throws \RuntimeException  priority out of range
      */
     protected function getIndex(int $priority): int
     {
@@ -110,7 +110,7 @@ class PriorityQueue implements \IteratorAggregate, \Countable
     {
         if (!$this->sorted) {
             krsort($this->queue);
-            $this->sorted = true;
+            $this->sorted = TRUE;
         }
         return $this;
     }

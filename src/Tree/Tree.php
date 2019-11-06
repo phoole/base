@@ -56,7 +56,7 @@ class Tree implements TreeInterface
         if ('' === $node) {
             return !empty($this->tree);
         } else {
-            return $this->searchNode($node, $this->tree) !== null;
+            return $this->searchNode($node, $this->tree) !== NULL;
         }
     }
 
@@ -66,7 +66,7 @@ class Tree implements TreeInterface
     public function add(string $node, $data): TreeInterface
     {
         // get the node, create it if not exists
-        $n = &$this->searchNode($node, $this->tree, true);
+        $n = &$this->searchNode($node, $this->tree, TRUE);
 
         // fix data
         if (is_array($data)) {
@@ -91,7 +91,7 @@ class Tree implements TreeInterface
         if ('' === $node) {
             $this->tree = [];
         } elseif ($this->has($node)) {
-            $par  = &$this->parentNode($node);
+            $par = &$this->parentNode($node);
             $name = $this->getName($node);
             unset($par[$name]);
         }
@@ -136,9 +136,9 @@ class Tree implements TreeInterface
         if (isset($data[0])) {
             return $data;
         }
-        
+
         foreach ($data as $k => $v) {
-            $res = &$this->searchNode($k, $result, true);
+            $res = &$this->searchNode($k, $result, TRUE);
             if (is_array($v) && is_array($res)) {
                 $res = array_replace_recursive($res, $this->fixData($v));
             } else {
@@ -151,17 +151,17 @@ class Tree implements TreeInterface
     /**
      * Search a node in the $data, create on the fly
      *
-     * @param  string $path
+     * @param  string  $path
      * @param  array  &$data
-     * @param  bool   $create
+     * @param  bool    $create
      * @return mixed  null for not found
      */
-    protected function &searchNode(string $path, array &$data, bool $create = false)
+    protected function &searchNode(string $path, array &$data, bool $create = FALSE)
     {
         $found = &$data;
         foreach (explode('.', $path) as $key) {
             $found = &$this->childNode($key, $found, $create);
-            if (null === $found) {
+            if (NULL === $found) {
                 break;
             }
         }
@@ -171,14 +171,14 @@ class Tree implements TreeInterface
     /**
      * get or create the next/child node, return NULL if not found
      *
-     * @param  string $key
+     * @param  string  $key
      * @param  mixed  &$data
-     * @param  bool   $create create the node if not exist
+     * @param  bool    $create  create the node if not exist
      * @return mixed
      */
     protected function &childNode(string $key, &$data, bool $create)
     {
-        $null = null;
+        $null = NULL;
         if (is_array($data)) {
             if (isset($data[$key])) {
                 return $data[$key];

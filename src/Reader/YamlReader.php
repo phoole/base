@@ -25,7 +25,7 @@ class YamlReader extends AbstractReader
     {
         try {
             $data = \yaml_parse_file($path);
-            if ($data === false) {
+            if ($data === FALSE) {
                 throw new \RuntimeException("Parse $path error");
             }
         } catch (\Exception $e) {

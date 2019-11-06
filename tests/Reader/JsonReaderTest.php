@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Phoole\Tests\Reader;
@@ -9,6 +10,7 @@ use Phoole\Base\Reader\JsonReader;
 class JsonReaderTest extends TestCase
 {
     private $obj;
+
     private $ref;
 
     protected function setUp(): void
@@ -20,14 +22,14 @@ class JsonReaderTest extends TestCase
 
     protected function tearDown(): void
     {
-        $this->obj = $this->ref = null;
+        $this->obj = $this->ref = NULL;
         parent::tearDown();
     }
 
     protected function invokeMethod($methodName, array $parameters = array())
     {
         $method = $this->ref->getMethod($methodName);
-        $method->setAccessible(true);
+        $method->setAccessible(TRUE);
         return $method->invokeArgs($this->obj, $parameters);
     }
 
@@ -40,7 +42,7 @@ class JsonReaderTest extends TestCase
     {
         $this->assertEquals(
             ['Test' => 'ddd'],
-            $this->invokeMethod('readFromFile', [__DIR__.'/good.json'])
+            $this->invokeMethod('readFromFile', [__DIR__ . '/good.json'])
         );
     }
 
@@ -68,7 +70,7 @@ class JsonReaderTest extends TestCase
         $this->expectExceptionMessage('yntax error');
         $this->assertEquals(
             ['Test' => 'ddd'],
-            $this->invokeMethod('readFromFile', [__DIR__.'/badjson.txt'])
+            $this->invokeMethod('readFromFile', [__DIR__ . '/badjson.txt'])
         );
     }
 }

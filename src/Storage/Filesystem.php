@@ -35,15 +35,15 @@ class Filesystem implements StorageInterface
     protected $hashLevel;
 
     /**
-     * @param string $rootPath   the base/root storage directory
-     * @param int    $hashLevel  directory hash depth
+     * @param  string $rootPath   the base/root storage directory
+     * @param  int    $hashLevel  directory hash depth
      * @throws       \RuntimeException  if mkdir failed
      */
     public function __construct(
         string $rootPath,
         int $hashLevel = 2
     ) {
-        if (!file_exists($rootPath) && !@mkdir($rootPath, 0777, true)) {
+        if (!file_exists($rootPath) && !@mkdir($rootPath, 0777, TRUE)) {
             throw new \RuntimeException("Failed to create $rootPath");
         }
         $this->rootPath = realpath($rootPath) . \DIRECTORY_SEPARATOR;
@@ -81,7 +81,7 @@ class Filesystem implements StorageInterface
         }
 
         // locking failed
-        return false;
+        return FALSE;
     }
 
     /**
@@ -95,7 +95,7 @@ class Filesystem implements StorageInterface
             $this->releaseLock($path, $fp);
             return $res;
         }
-        return false;
+        return FALSE;
     }
 
     /**
@@ -105,10 +105,10 @@ class Filesystem implements StorageInterface
     {
         $path = rtrim($this->getRoot(), '/\\');
         if (file_exists($path)) {
-            $temp = $path . '_' . substr(md5($path . microtime(true)), -5);
-            return rename($path, $temp) && mkdir($path, 0777, true);
+            $temp = $path . '_' . substr(md5($path . microtime(TRUE)), -5);
+            return rename($path, $temp) && mkdir($path, 0777, TRUE);
         }
-        return false;
+        return FALSE;
     }
 
     /**
@@ -117,9 +117,9 @@ class Filesystem implements StorageInterface
     public function garbageCollect()
     {
         $root = $this->getRoot();
-        
+
         // remove staled file
-        $this->rmDir($root, true);
+        $this->rmDir($root, TRUE);
 
         // remove staled directory
         $pattern = rtrim($root, '/\\') . '_*';
@@ -151,7 +151,7 @@ class Filesystem implements StorageInterface
 
         // make sure hashed directory exists
         if (!file_exists($path)) {
-            mkdir($path, 0777, true);
+            mkdir($path, 0777, TRUE);
         }
 
         // return full path
@@ -169,14 +169,14 @@ class Filesystem implements StorageInterface
         $lock = $path . '.lock';
         $count = 0;
         if ($fp = fopen($lock, 'c')) {
-            while (true) {
+            while (TRUE) {
                 // try 3 times only
                 if ($count++ > 3) {
                     break;
                 }
 
                 // get lock non-blockingly
-                if (flock($fp, \LOCK_EX | \LOCK_NB)) {
+                if (flock($fp, \LOCK_EX|\LOCK_NB)) {
                     return $fp;
                 }
 
@@ -186,7 +186,7 @@ class Filesystem implements StorageInterface
             // failed
             fclose($fp);
         }
-        return false;
+        return FALSE;
     }
 
     /**
@@ -206,9 +206,9 @@ class Filesystem implements StorageInterface
      * @param  string $dir
      * @return void
      */
-    protected function rmDir(string $dir, bool $staleOnly = false)
+    protected function rmDir(string $dir, bool $staleOnly = FALSE)
     {
-        foreach (glob($dir . '{,.}[!.,!..]*', GLOB_MARK | GLOB_BRACE) as $file) {
+        foreach (glob($dir . '{,.}[!.,!..]*', GLOB_MARK|GLOB_BRACE) as $file) {
             if (is_dir($file)) {
                 $this->rmDir($file, $staleOnly);
             } else {

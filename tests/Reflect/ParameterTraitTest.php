@@ -37,7 +37,6 @@ class myClass
 
     public function noParam()
     {
-
     }
 
     public function paramIsString(string $s)
@@ -50,13 +49,13 @@ class myClass2
 {
     public function __construct(myParam $e)
     {
-
     }
 }
 
 class ProviderTest extends TestCase
 {
     private $obj;
+
     private $ref;
 
     protected function setUp(): void
@@ -68,14 +67,14 @@ class ProviderTest extends TestCase
 
     protected function tearDown(): void
     {
-        $this->obj = $this->ref = null;
+        $this->obj = $this->ref = NULL;
         parent::tearDown();
     }
 
     protected function invokeMethod($methodName, array $parameters = array())
     {
         $method = $this->ref->getMethod($methodName);
-        $method->setAccessible(true);
+        $method->setAccessible(TRUE);
         return $method->invokeArgs($this->obj, $parameters);
     }
 

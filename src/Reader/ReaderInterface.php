@@ -21,7 +21,7 @@ interface ReaderInterface
     /**
      * Read, parse & return contents from the $path
      *
-     * @param  string $path the full path
+     * @param  string $path  the full path
      * @return mixed
      * @throws \RuntimeException  if something goes wrong
      */

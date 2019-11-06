@@ -25,8 +25,8 @@ class Reader implements ReaderInterface
      */
     protected $supported = [
         'json' => __NAMESPACE__ . '\JsonReader',
-        'php'  => __NAMESPACE__ . '\PhpReader',
-        'yml'  => __NAMESPACE__ . '\YamlReader'
+        'php' => __NAMESPACE__ . '\PhpReader',
+        'yml' => __NAMESPACE__ . '\YamlReader'
     ];
 
     /**

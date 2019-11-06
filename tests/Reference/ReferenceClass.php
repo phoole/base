@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Sample reference class
  */
@@ -40,7 +41,7 @@ class ReferenceClass implements ReferenceInterface
         if (isset($this->data[$name])) {
             return $this->data[$name];
         } else {
-            return null;
+            return NULL;
         }
     }
 }

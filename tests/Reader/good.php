@@ -1,2 +1,3 @@
 <?php
-return [ 'Test' => 'ddd' ];
+
+return ['Test' => 'ddd'];
