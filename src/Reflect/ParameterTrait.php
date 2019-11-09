@@ -59,9 +59,6 @@ trait ParameterTrait
             } elseif (is_object($callable)) {
                 $reflector = new \ReflectionClass($callable);
                 $method = $reflector->getMethod('__invoke');
-                // unknown callable ?
-            } else {
-                throw new \InvalidArgumentException('unknown type of callable');
             }
         } catch (\Throwable $e) {
             throw new \InvalidArgumentException($e->getMessage());
