@@ -48,15 +48,12 @@ trait ParameterTrait
     protected function getCallableParameters(callable $callable): array
     {
         try {
-            // [class, method]
-            if (is_array($callable)) {
+            if (is_array($callable)) { // [class, method]
                 $reflector = new \ReflectionClass($callable[0]);
                 $method = $reflector->getMethod($callable[1]);
-                // function or closure
-            } elseif (is_string($callable) || $callable instanceof \Closure) {
+            } elseif (is_string($callable) || $callable instanceof \Closure) { // function
                 $method = new \ReflectionFunction($callable);
-                // object with __invoke() defined
-            } elseif (is_object($callable)) {
+            } else { // __invokable
                 $reflector = new \ReflectionClass($callable);
                 $method = $reflector->getMethod('__invoke');
             }
